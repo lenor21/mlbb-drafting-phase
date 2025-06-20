@@ -18,23 +18,37 @@ const Home = () => {
       try {
         const res = await axios.get(apiUrl);
 
-        setData(res.data);
+        if (
+          res.data &&
+          res.data.data &&
+          Array.isArray(res.data.data.camp_list) &&
+          res.data.data.camp_list.length >= 2
+        ) {
+          setData(res.data);
+        } else {
+          console.warn(
+            'API response did not contain expected battle data structure:',
+            res.data
+          );
+        }
       } catch (err) {
         console.error(err);
       }
     };
 
-    const intervalId = setInterval(() => {
-      getBattleData();
-    }, 1000);
+    // const intervalId = setInterval(() => {
+    //   getBattleData();
+    // }, 1000);
 
-    // getBattleData();
+    getBattleData();
 
-    return () => {
-      clearInterval(intervalId);
-      console.log('Interval cleared for BattleDataFetcher.');
-    };
+    // return () => {
+    //   clearInterval(intervalId);
+    //   console.log('Interval cleared for BattleDataFetcher.');
+    // };
   }, [apiUrl]);
+
+  //   console.log('data', data);
 
   if (
     !data ||
@@ -50,16 +64,32 @@ const Home = () => {
   }
 
   const teamBlue = data.data.camp_list[0];
+  let teamBlueArrBan = teamBlue.ban_hero_list;
+  let teamBlueArr = [0, 0, 0, 0, 0];
+
+  for (let i = 0; i < 5; i++) {
+    if (teamBlueArrBan[i]) {
+      teamBlueArr[i] = teamBlueArrBan[i];
+    }
+  }
+
   const teamRed = data.data.camp_list[1];
+  let teamRedArrBan = teamBlue.ban_hero_list;
+  let teamRedArr = [0, 0, 0, 0, 0];
+
+  for (let i = 0; i < 5; i++) {
+    if (teamRedArrBan[i]) {
+      teamRedArr[i] = teamRedArrBan[i];
+    }
+  }
 
   const teamBluePlayers = teamBlue.player_list.map((player) => {
     const hero = heroMap.find((h) => h.name === String(player.heroid));
     return <HeroPick key={hero.name} name={player.name} img={hero.img} />;
   });
 
-  const teamBlueBan = teamBlue.ban_hero_list.map((ban) => {
-    const banHero = heroMap.find((h) => h.name === String(ban));
-    return <HeroBan key={banHero.name} img={banHero.img} />;
+  const teamBlueBan = teamBlueArr.map((ban) => {
+    return <HeroBan key={ban} id={ban} />;
   });
 
   const teamRedPlayers = teamRed.player_list.map((player) => {
@@ -67,10 +97,14 @@ const Home = () => {
     return <HeroPick key={hero.name} name={player.name} img={hero.img} />;
   });
 
-  const teamRedBan = teamRed.ban_hero_list.map((ban) => {
-    const banHero = heroMap.find((h) => h.name === String(ban));
-    return <HeroBan key={banHero.name} img={banHero.img} />;
+  const teamRedBan = teamRedArr.map((ban) => {
+    return <HeroBan key={ban} id={ban} />;
   });
+
+  //   const teamRedBan = teamRed.ban_hero_list.map((ban) => {
+  //     const banHero = heroMap.find((h) => h.name === String(ban));
+  //     return <HeroBan key={banHero.name} img={banHero.img} />;
+  //   });
 
   return (
     <div className='h-screen'>
