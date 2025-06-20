@@ -9,7 +9,7 @@ const Home = () => {
   const [data, setData] = useState({});
 
   let dataid = 0;
-  const authkey = '8275ab26d121822bb9e0225c6cb6019a';
+  const authkey = import.meta.env.VITE_AUTH_KEY; //always use VITE on first name
   const params = useParams();
   const apiUrl = `https://esportsdata-sg.mobilelegends.com/battledata?authkey=${authkey}&battleid=${params.id}&dataid=${dataid}`;
 
