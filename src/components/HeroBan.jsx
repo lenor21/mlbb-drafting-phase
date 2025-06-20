@@ -1,11 +1,9 @@
-import heroAamon from '../assets/img/hero/aamon.png';
-
-const HeroBan = () => {
+const HeroBan = (props) => {
   return (
     <div className='border border-[#333]'>
       <img
-        src={heroAamon}
-        alt=''
+        src={`../../public/hero-pick/${props.img}`}
+        alt={`${props.img}`}
         className='w-full aspect-square object-cover object-top grayscale-100'
       />
     </div>
