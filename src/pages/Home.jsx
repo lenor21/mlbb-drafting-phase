@@ -24,19 +24,17 @@ const Home = () => {
       }
     };
 
-    // const intervalId = setInterval(() => {
-    //   getBattleData();
-    // }, 1000);
+    const intervalId = setInterval(() => {
+      getBattleData();
+    }, 1000);
 
-    getBattleData();
+    // getBattleData();
 
-    // return () => {
-    //   clearInterval(intervalId);
-    //   console.log('Interval cleared for BattleDataFetcher.');
-    // };
+    return () => {
+      clearInterval(intervalId);
+      console.log('Interval cleared for BattleDataFetcher.');
+    };
   }, [apiUrl]);
-
-  console.log(data.data);
 
   if (
     !data ||
