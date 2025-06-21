@@ -1,17 +1,19 @@
 const HeroPick = (props) => {
+  console.log(props.picking);
+
   return (
     <div className='border border-[#333] grid grid-rows-6'>
       {props.img ? (
         <img
-          src={`../../public/hero-pick/${props.img}`}
+          src={`/hero-pick/${props.img}`}
           alt={props.img}
           className='h-full row-span-5 object-cover'
         />
       ) : (
         <img
-          src={`../../public/other/Pickbg.jpg`}
+          src={`/other/Pickbg.jpg`}
           alt={props.img}
-          className='h-full row-span-5 object-cover'
+          className={`h-full row-span-5 object-cover ${props.picking ? 'animate-pulse' : ''}`}
         />
       )}
 

@@ -6,7 +6,7 @@ const BattleList = () => {
   const [list, setList] = useState<any[]>([]);
 
   const authkey = '8275ab26d121822bb9e0225c6cb6019a';
-  const apiUrl = `https://esportsdata-sg.mobilelegends.com/battlelist/judge?authkey=${authkey}&judgeid=1003056274`;
+  const apiUrl = `https://esportsdata-sg.mobilelegends.com/battlelist/judge?authkey=${authkey}&judgeid=245009984`;
 
   useEffect(() => {
     const getList = async () => {
